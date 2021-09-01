@@ -87,7 +87,7 @@ __Vectors       DCD     __initial_sp              ; Top of Stack
                 DCD     UART0_Handler             ;   5: UART0 Rx and Tx
                 DCD     UART1_Handler             ;   6: UART1 Rx and Tx
                 DCD     SSI0_Handler              ;   7: SSI0 Rx and Tx
-                DCD     I2C0_Handler              ;   8: I2C0 Master and Slave
+                DCD     I2C_Receive_Handler       ;   8: I2C0 Master and Slave
                 DCD     PMW0_FAULT_Handler        ;   9: PWM Fault
                 DCD     PWM0_0_Handler            ;  10: PWM Generator 0
                 DCD     PWM0_1_Handler            ;  11: PWM Generator 1

@@ -31,5 +31,19 @@
 *****************************FUNCTIONS PROTOTYPE********************************
 *******************************************************************************/
 
+/* This function is responsible for initializing the I2C */
+void I2C_init(const I2C_ConfigType *a_config_Ptr);
+
+/* This function is responsible for sending one byte */
+void I2C_sendByte(const uint8 a_data);
+
+/* This function is responsible for receiving one byte */
+uint8 I2C_receiveByte(void);
+
+/* This function is responsible for Making Master or Slave */
+void I2C_Master_Slave_Enable(uint8 a_master_or_slave);
+
+/*This function is responsible for saving the address that will be called after interrupts happen*/
+void I2C_callBackAdress(void(*a_Func_Ptr)(void));
 
 #endif /* I2C_H */

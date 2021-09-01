@@ -22,11 +22,28 @@
 *****************************PREPRPCESSOR MACROS********************************
 *******************************************************************************/
 
+#define MASTER_TRANSMIT_ONE_BYTE	(7U)
+#define MASTER_RECEIVE_ONE_BYTE	  (7U)
 
 /*******************************************************************************
 ****************************TYPES DECLARATION***********************************
 *******************************************************************************/
+typedef enum{
+	M_S_DISABLE,M_S_ENABLE
+}MASTER_SLAVE_ENABLE;
 
+typedef enum{
+	HS_DISABLE,HS_ENABLE
+}HIGH_SPEED_ENABLE;
+
+typedef struct
+{
+		HIGH_SPEED_ENABLE s_Highspeed_Enable;
+		MASTER_SLAVE_ENABLE s_Master_Enable;
+		MASTER_SLAVE_ENABLE s_Slave_Enable;
+		uint8	Device_Address;
+	
+}I2C_ConfigType;
 /*******************************************************************************
 *****************************FUNCTIONS PROTOTYPE********************************
 *******************************************************************************/

@@ -132,7 +132,16 @@ uint8 I2C_receiveByte(void){
 void I2C_Master_Slave_Enable(uint8 a_master_or_slave){
 	
 	/* Select Master or Slave */
-	
+	if(a_master_or_slave == MASTER_ENABLE)
+	{
+		SET_BIT(GPIO_PORTB_DIR_REG,I2C0_SDA_PIN); /* Set clk direction */
+		SET_BIT(I2C0_MASTER_CONFIG_REG,I2C0_MASTER_ENABLE_BIT);
+	}
+	else if(a_master_or_slave == SLAVE_ENABLE)
+	{
+		CLEAR_BIT(GPIO_PORTB_DIR_REG,I2C0_SDA_PIN); /* Set clk direction */
+		SET_BIT(I2C0_MASTER_CONFIG_REG,I2C0_SLAVE_ENABLE_BIT);
+	}
 }
 /**********************************************************************************************
  *[Function Name]:	I2C_callBackAdress

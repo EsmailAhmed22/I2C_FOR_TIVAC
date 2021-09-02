@@ -104,7 +104,7 @@ void I2C_init(const I2C_ConfigType *a_config_Ptr){
 uint8 I2C_Master_sendByte(const uint8 a_slave_add ,const uint8 a_data){
 	 
 	/* Specifiy the operation is send */
-	I2C0_MASTER_SLAVE_ADD_REG = STD_IDLE;
+	I2C0_MASTER_SLAVE_ADD_REG = STD_OFF;
 	
 	/* Write Slave address */
 	I2C0_MASTER_SLAVE_ADD_REG = ((uint32)a_slave_add << I2C0_SLAVE_ADD_OFFSET);
@@ -130,15 +130,33 @@ uint8 I2C_Master_sendByte(const uint8 a_slave_add ,const uint8 a_data){
 
 /********************************************************************************
 *[Function Name]: SPI_receiveByte.
-*[Description]  : This function is responsible for receiving one byte.
+*[Description]  : This function is responsible for Master receiving one byte.
 *[in]		: uint8 a_data:contain data that will be sent.
 *[out]		: None.
 *[in/out]	: None.
 *[Returns]	: The received data.
 *********************************************************************************/
-uint8 I2C_receiveByte(void){
-
-  /* return data */
+uint8 I2C_Master_receiveByte(const uint8 a_slave_add){ 
+  /* Specifiy the operation is receive */
+	I2C0_MASTER_SLAVE_ADD_REG = STD_ON;
+	
+	/* Write Slave address */
+	I2C0_MASTER_SLAVE_ADD_REG = ((uint32)a_slave_add << I2C0_SLAVE_ADD_OFFSET);
+	
+	/* Monitor the bus until it is idle */
+	while(BIT_IS_SET(I2C0_MASTER_CTL_STAT_REG,I2C0_BUS_BUSY_BIT));
+	
+	/* Write the Master one byte send sequence */
+	I2C0_MASTER_CTL_STAT_REG = MASTER_RECEIVE_ONE_BYTE;
+	
+	/* Polling until the data is sent */
+	while(BIT_IS_SET(I2C0_MASTER_CTL_STAT_REG,I2C0_BUS_BUSY_BIT));
+	
+	/* Check error bit */
+	if( BIT_IS_CLEAR(I2C0_MASTER_CTL_STAT_REG,I2C0_ERROR_BIT))
+		return (uint8)I2C0_MASTER_DATA_REG;
+	else
+		return E_NOT_OK;
 	
 }
 /********************************************************************************

@@ -94,18 +94,38 @@ void I2C_init(const I2C_ConfigType *a_config_Ptr){
 }
 /********************************************************************************
 *[Function Name]: I2C_sendByte.
-*[Description]  : This function is responsible for sending one byte.
-*[in]		: uint8 a_data:contain data that will be sent.
+*[Description]  : This function is responsible for Master sending one byte.
+*[in]		: uint8 a_slave_add: contain the address I will send data to.
+*					uint8 a_data:contain data that will be sent.
 *[out]		: None.
 *[in/out]	: None.
 *[Returns]	: None.
 *********************************************************************************/
-void I2C_sendByte(const uint8 a_data){
-  /* Polling To check if  data is being sent */
-
-  /* Write data I want to send */
-
-  /* Clear Tx flag */
+uint8 I2C_Master_sendByte(const uint8 a_slave_add ,const uint8 a_data){
+	 
+	/* Specifiy the operation is send */
+	I2C0_MASTER_SLAVE_ADD_REG = STD_IDLE;
+	
+	/* Write Slave address */
+	I2C0_MASTER_SLAVE_ADD_REG = ((uint32)a_slave_add << I2C0_SLAVE_ADD_OFFSET);
+	
+	/* Write the byte to be sent */
+	I2C0_MASTER_DATA_REG = a_data;
+	
+	/* Monitor the bus until it is idle */
+	while(BIT_IS_SET(I2C0_MASTER_CTL_STAT_REG,I2C0_BUS_BUSY_BIT));
+	
+	/* Write the Master one byte send sequence */
+	I2C0_MASTER_CTL_STAT_REG = MASTER_TRANSMIT_ONE_BYTE;
+	
+	/* Polling until the data is sent */
+	while(BIT_IS_SET(I2C0_MASTER_CTL_STAT_REG,I2C0_BUS_BUSY_BIT));
+	
+	/* Check error bit */
+	if( BIT_IS_CLEAR(I2C0_MASTER_CTL_STAT_REG,I2C0_ERROR_BIT))
+		return E_OK;
+	else
+		return E_NOT_OK;
 }
 
 /********************************************************************************

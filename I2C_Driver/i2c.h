@@ -35,6 +35,9 @@
 #define I2C0_SLAVE_ENABLE_BIT		  (5U)
 #define I2C0_DATA_RECEIVE_INT_BIT (0U)
 #define I2C0_ACK_NACK_ENABLE			(0U)
+#define I2C0_SLAVE_ADD_OFFSET			(1U)
+#define I2C0_BUS_BUSY_BIT					(6U)
+#define I2C0_ERROR_BIT					  (1U)
 #define MASTER_TRANSMIT_ONE_BYTE	(7U)
 #define MASTER_RECEIVE_ONE_BYTE	  (7U)
 /*******************************************************************************
@@ -69,6 +72,12 @@ typedef struct
 
 /* This function is responsible for initializing the I2C */
 void I2C_init(const I2C_ConfigType *a_config_Ptr);
+
+/* This function is responsible for Master sending one byte */
+uint8 I2C_Master_sendByte(const uint8 a_slave_add ,const uint8 a_data);
+
+/* This function is responsible for Master receiving one byte */
+uint8 I2C_Master_receiveByte(const uint8 a_slave_add ,const uint8 a_data);
 
 /* This function is responsible for sending one byte */
 void I2C_sendByte(const uint8 a_data);

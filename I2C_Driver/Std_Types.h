@@ -14,6 +14,8 @@
 #define STD_TYPES_H
 
 #include "Platform_Types.h"
+/* This type can be used as standard API return type which is shared between the modules. */
+typedef uint8 Std_ReturnType;
 
 #define STD_HIGH        0x01U          /* Physical state 5V or 3.3V */ 
 #define STD_LOW         0x00U          /* Physical state 0V */
@@ -23,5 +25,8 @@
 
 #define STD_ON          0x01U 
 #define STD_OFF         0x00U
+
+#define E_OK     ((Std_ReturnType)0x00U)
+#define E_NOT_OK ((Std_ReturnType)0x01U)
 
 #endif /* STD_TYPES_H */

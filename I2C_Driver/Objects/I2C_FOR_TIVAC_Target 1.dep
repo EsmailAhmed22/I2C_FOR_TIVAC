@@ -2,25 +2,22 @@ Dependencies for Project 'I2C_FOR_TIVAC', Target 'Target 1': (DO NOT MODIFY !)
 CompilerVersion: 6160000::V6.16::ARMCLANG
 F (.\Common_Macros.h)(0x612D2432)()
 F (.\Platform_Types.h)(0x612C14D1)()
-F (.\Std_Types.h)(0x612C14B1)()
-F (.\i2c.c)(0x61302CFC)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -O1 -ffunction-sections -Weverything -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/_Target_1-IC:/Users/Esmail/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/Esmail/AppData/Local/Arm/Packs/Keil/TM4C_DFP/1.1.0/Device/Include/TM4C123-D__UVISION_VERSION="535" -D_RTE_ -DTM4C123GH6PM -D_RTE_-o ./objects/i2c.o -MD)
-I (i2c.h)(0x61302CFC)
-I (i2c_cfg.h)(0x612ECEC4)
-I (Std_Types.h)(0x612C14B1)
+F (.\Std_Types.h)(0x6130432C)()
+F (.\i2c.c)(0x61304F0F)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -O1 -ffunction-sections -Weverything -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/_Target_1-IC:/Users/Esmail/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/Esmail/AppData/Local/Arm/Packs/Keil/TM4C_DFP/1.1.0/Device/Include/TM4C123-D__UVISION_VERSION="535" -D_RTE_ -DTM4C123GH6PM -D_RTE_-o ./objects/i2c.o -MD)
+I (i2c.h)(0x6130513C)
+I (Std_Types.h)(0x6130432C)
 I (Platform_Types.h)(0x612C14D1)
 I (Common_Macros.h)(0x612D2432)
-I (i2c_registers.h)(0x61302C0E)
-F (.\i2c_PBcfg.c)(0x61302D2C)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -O1 -ffunction-sections -Weverything -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/_Target_1-IC:/Users/Esmail/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/Esmail/AppData/Local/Arm/Packs/Keil/TM4C_DFP/1.1.0/Device/Include/TM4C123-D__UVISION_VERSION="535" -D_RTE_ -DTM4C123GH6PM -D_RTE_-o ./objects/i2c_pbcfg.o -MD)
-I (i2c.h)(0x61302CFC)
-I (i2c_cfg.h)(0x612ECEC4)
-I (Std_Types.h)(0x612C14B1)
+I (i2c_registers.h)(0x61304E49)
+F (.\i2c_PBcfg.c)(0x61304DB9)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -O1 -ffunction-sections -Weverything -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/_Target_1-IC:/Users/Esmail/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/Esmail/AppData/Local/Arm/Packs/Keil/TM4C_DFP/1.1.0/Device/Include/TM4C123-D__UVISION_VERSION="535" -D_RTE_ -DTM4C123GH6PM -D_RTE_-o ./objects/i2c_pbcfg.o -MD)
+I (i2c.h)(0x6130513C)
+I (Std_Types.h)(0x6130432C)
 I (Platform_Types.h)(0x612C14D1)
 I (Common_Macros.h)(0x612D2432)
-I (i2c_registers.h)(0x61302C0E)
-F (.\i2c.h)(0x61302CFC)()
-F (.\i2c_cfg.h)(0x612ECEC4)()
-F (.\i2c_registers.h)(0x61302C0E)()
-F (RTE\Device\TM4C123GH6PM\startup_TM4C123.s)(0x612ED279)(--target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -masm=auto -c-gdwarf-3 -Wa,armasm,--pd,"__EVAL SETA 1"-I./RTE/_Target_1-IC:/Users/Esmail/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/Esmail/AppData/Local/Arm/Packs/Keil/TM4C_DFP/1.1.0/Device/Include/TM4C123-Wa,armasm,--pd,"__UVISION_VERSION SETA 535" -Wa,armasm,--pd,"_RTE_ SETA 1" -Wa,armasm,--pd,"TM4C123GH6PM SETA 1" -Wa,armasm,--pd,"_RTE_ SETA 1"-o ./objects/startup_tm4c123.o)
+I (i2c_registers.h)(0x61304E49)
+F (.\i2c.h)(0x6130513C)()
+F (.\i2c_registers.h)(0x61304E49)()
+F (RTE\Device\TM4C123GH6PM\startup_TM4C123.s)(0x61303C80)(--target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -masm=auto -c-gdwarf-3 -Wa,armasm,--pd,"__EVAL SETA 1"-I./RTE/_Target_1-IC:/Users/Esmail/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/Esmail/AppData/Local/Arm/Packs/Keil/TM4C_DFP/1.1.0/Device/Include/TM4C123-Wa,armasm,--pd,"__UVISION_VERSION SETA 535" -Wa,armasm,--pd,"_RTE_ SETA 1" -Wa,armasm,--pd,"TM4C123GH6PM SETA 1" -Wa,armasm,--pd,"_RTE_ SETA 1"-o ./objects/startup_tm4c123.o)
 F (RTE\Device\TM4C123GH6PM\system_TM4C123.c)(0x550A65DA)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__EVAL -gdwarf-4 -O1 -ffunction-sections -Weverything -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/_Target_1-IC:/Users/Esmail/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-IC:/Users/Esmail/AppData/Local/Arm/Packs/Keil/TM4C_DFP/1.1.0/Device/Include/TM4C123-D__UVISION_VERSION="535" -D_RTE_ -DTM4C123GH6PM -D_RTE_-o ./objects/system_tm4c123.o -MD)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x60355C30)
 I (C:\Users\Esmail\AppData\Local\Arm\Packs\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\TM4C123.h)(0x530EF2F6)

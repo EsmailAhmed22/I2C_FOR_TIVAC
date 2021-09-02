@@ -27,35 +27,21 @@ Project File Date:  09/02/2021
 <h2>Output:</h2>
 *** Using Compiler 'V6.16', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Rebuild target 'Target 1'
-i2c_PBcfg.c(16): warning: use of GNU empty initializer extension [-Wgnu-empty-initializer]
-const I2C_ConfigType I2C_Configuration= {};
-                                        ^
-i2c_PBcfg.c(16): warning: no newline at end of file [-Wnewline-eof]
-const I2C_ConfigType I2C_Configuration= {};
-                                           ^
-2 warnings generated.
 compiling i2c_PBcfg.c...
-i2c.c(111): warning: unused parameter 'a_data' [-Wunused-parameter]
-void I2C_sendByte(const uint8 a_data){
-                              ^
-i2c.c(131): warning: non-void function does not return a value [-Wreturn-type]
-}
-^
-i2c.c(140): warning: unused parameter 'a_master_or_slave' [-Wunused-parameter]
-void I2C_Master_Slave_Enable(uint8 a_master_or_slave){
-                                   ^
-i2c.c(153): warning: unused parameter 'a_Func_Ptr' [-Wunused-parameter]
-void I2C_callBackAdress(void(*a_Func_Ptr)(void)){
-                              ^
-i2c.c(161): warning: no previous prototype for function 'I2C_Receive_Handler' [-Wmissing-prototypes]
+i2c.c(245): warning: no previous prototype for function 'I2C_Receive_Handler' [-Wmissing-prototypes]
 void I2C_Receive_Handler(void)
      ^
-i2c.c(161): note: declare 'static' if the function is not intended to be used outside of this translation unit
+i2c.c(245): note: declare 'static' if the function is not intended to be used outside of this translation unit
 void I2C_Receive_Handler(void)
 ^
 static 
-5 warnings generated.
+1 warning generated.
 compiling i2c.c...
+"RTE/Device/TM4C123GH6PM/startup_TM4C123.s", line 90 (column 25): Error: A1516E: Bad symbol 'I2C_Receive_Handler', not defined or external
+   90 00000060                 DCD     I2C_Receive_Handler       ;   8: I2C0 Master and Slave
+                                       ^
+1 Error, 0 Warnings
+assembling startup_TM4C123.s...
 RTE/Device/TM4C123GH6PM/system_TM4C123.c(13): warning: In file included from...
 C:/Users/Esmail/AppData/Local/Arm/Packs/Keil/TM4C_DFP/1.1.0/Device/Include/TM4C123\TM4C123.h(98): warning: In file included from...
 C:/Users/Esmail/AppData/Local/Arm/Packs/Keil/TM4C_DFP/1.1.0/Device/Include/TM4C123/TM4C123GH6PM.h(298): warning: anonymous unions are a C11 extension [-Wc11-extensions]
@@ -192,17 +178,12 @@ C:/Users/Esmail/AppData/Local/Arm/Packs/Keil/TM4C_DFP/1.1.0/Device/Include/TM4C1
   ^
 44 warnings generated.
 compiling system_TM4C123.c...
-"RTE/Device/TM4C123GH6PM/startup_TM4C123.s", line 90 (column 25): Error: A1516E: Bad symbol 'I2C_Receive_Handler', not defined or external
-   90 00000060                 DCD     I2C_Receive_Handler       ;   8: I2C0 Master and Slave
-                                       ^
-1 Error, 0 Warnings
-assembling startup_TM4C123.s...
 linking...
 .\Objects\I2C_FOR_TIVAC.axf: error: L6002U: Could not open file .\objects\startup_tm4c123.o: No such file or directory
 Not enough information to list image symbols.
 Not enough information to list load addresses in the image map.
 Finished: 2 information, 0 warning, 0 error and 1 fatal error messages.
-".\Objects\I2C_FOR_TIVAC.axf" - 1 Error(s), 51 Warning(s).
+".\Objects\I2C_FOR_TIVAC.axf" - 1 Error(s), 45 Warning(s).
 
 <h2>Software Packages used:</h2>
 

@@ -15,7 +15,8 @@
 /*******************************************************************************
  *****************************GLOBAL VARIABLES**********************************
  *******************************************************************************/
-static void(*g_I2C_interrupt_Func_Ptr)(void);
+static void(*g_I2C_Read_Func_Ptr)(void);
+static void(*g_I2C_Write_Func_Ptr)(void);
 
 
 /*******************************************************************************
@@ -82,7 +83,7 @@ void I2C_init(const I2C_ConfigType *a_config_Ptr){
 	SET_BIT(I2C0_MASTER_CTL_STAT_REG,I2C0_ENABLE_BIT);
 }
 /********************************************************************************
-*[Function Name]: I2C_sendByte.
+*[Function Name]: I2C_Master_sendByte.
 *[Description]  : This function is responsible for Master sending one byte.
 *[in]		: uint8 a_slave_add: contain the address I will send data to.
 *					uint8 a_data:contain data that will be sent.
@@ -118,7 +119,7 @@ uint8 I2C_Master_sendByte(const uint8 a_slave_add ,const uint8 a_data){
 }
 
 /********************************************************************************
-*[Function Name]: SPI_receiveByte.
+*[Function Name]: I2C_Master_receiveByte.
 *[Description]  : This function is responsible for Master receiving one byte.
 *[in]		: uint8 a_data:contain data that will be sent.
 *[out]		: None.
@@ -143,10 +144,38 @@ uint8 I2C_Master_receiveByte(const uint8 a_slave_add){
 	
 	/* Check error bit */
 	if( BIT_IS_CLEAR(I2C0_MASTER_CTL_STAT_REG,I2C0_ERROR_BIT))
-		return (uint8)I2C0_MASTER_DATA_REG;
+		return (uint8)I2C0_MASTER_DATA_REG; /*Return Data*/
 	else
 		return E_NOT_OK;
 	
+}
+/********************************************************************************
+*[Function Name]: I2C_Slave_Check.
+*[Description]  : This function responsible for checking whether the master want data or will give data.
+*[in]		: None.
+*[out]		: None.
+*[in/out]	: None.
+*[Returns]	: The received data.
+*********************************************************************************/
+void I2C_Slave_Check(void){
+	/* Start Slave Operation */
+	I2C0_SLAVE_CTL_STAT_REG = STD_ON ;
+	
+	/* Check  on flags to know what does the Master want */
+	if (BIT_IS_SET(I2C0_SLAVE_CTL_STAT_REG , I2C0_REQUEST_READ_FLAG))
+	{
+	  /* Call the function in the Scheduler using Call Back concept */
+	  (*g_I2C_Read_Func_Ptr)();
+		/* Clear flag */
+		CLEAR_BIT(I2C0_SLAVE_INT_CLEAR_REG,I2C0_DATA_RECEIVE_INT_BIT);
+	}
+	else if (BIT_IS_SET(I2C0_SLAVE_CTL_STAT_REG , I2C0_REQUEST_WRITE_FLAG))
+	{
+	  /* Call the function in the Scheduler using Call Back concept */
+	  (*g_I2C_Write_Func_Ptr)();
+		/* Clear flag */
+		CLEAR_BIT(I2C0_SLAVE_INT_CLEAR_REG,I2C0_DATA_RECEIVE_INT_BIT);
+	}
 }
 /********************************************************************************
 *[Function Name]: SPI_Master_Slave_Enable.
@@ -170,16 +199,42 @@ void I2C_Master_Slave_Enable(uint8 a_master_or_slave){
 		SET_BIT(I2C0_MASTER_CONFIG_REG,I2C0_SLAVE_ENABLE_BIT);
 	}
 }
+/********************************************************************************
+*[Function Name]: I2C_Slave_sendByte.
+*[Description]  : This function is responsible for Slave sending one byte.
+*[in]		: uint8 a_data:contain data that will be sent.
+*[out]		: None.
+*[in/out]	: None.
+*[Returns]	: None.
+*********************************************************************************/
+void I2C_Slave_sendByte(const uint8 a_data){
+	I2C0_SLAVE_DATA_REG = a_data; /* Send data to Master */
+}
+
+/********************************************************************************
+*[Function Name]: I2C_Slave_receiveByte.
+*[Description]  : This function is responsible for Master receiving one byte.
+*[in]		: uint8 a_data:contain data that will be sent.
+*[out]		: None.
+*[in/out]	: None.
+*[Returns]	: The received data.
+*********************************************************************************/
+uint8 I2C_Slave_receiveByte(void){
+	return (uint8)I2C0_SLAVE_DATA_REG; /* Receive data from master */
+}
+
 /**********************************************************************************************
  *[Function Name]:	I2C_callBackAdress
  *[Description] :This function is responsible for saving the address that will be called after interrupts happen
- *[in] :void(*a_Func_Ptr)(void): Pointer to function used to store function's address ISR will call
+ *[in] :void(*a_Func_Ptr)(void): Pointer to function used to store function's address Slave will call.
+ *     :void(*a_Func_Ptr)(void): Pointer to function used to store function's address Slave will call
  *[out] :None.
  *[in/out] :None.
  *[Returns] :.
  ***********************************************************************************************/
-void I2C_callBackAdress(void(*a_Func_Ptr)(void)){
-		g_I2C_interrupt_Func_Ptr = a_Func_Ptr;
+void I2C_callBackAdress(void(*a_Func_Read_Ptr)(void),void(*a_Func_Write_Ptr)(void)){
+		g_I2C_Read_Func_Ptr = a_Func_Read_Ptr; /* Address will be called to read data */
+	  g_I2C_Write_Func_Ptr = a_Func_Write_Ptr; /* Address will be called to write data */
 }
 
 /*******************************************************************************
@@ -189,6 +244,5 @@ void I2C_callBackAdress(void(*a_Func_Ptr)(void)){
 /* ISR for Receiving a Byte*/     
 void I2C_Receive_Handler(void)
 {
-	/* Call the function in the Scheduler using Call Back concept */
-	(*g_I2C_interrupt_Func_Ptr)();
+	I2C_Slave_Check();
 }

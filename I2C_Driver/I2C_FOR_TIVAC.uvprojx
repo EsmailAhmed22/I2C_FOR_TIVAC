@@ -414,11 +414,6 @@
               <FilePath>.\i2c.h</FilePath>
             </File>
             <File>
-              <FileName>i2c_cfg.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\i2c_cfg.h</FilePath>
-            </File>
-            <File>
               <FileName>i2c_registers.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\i2c_registers.h</FilePath>

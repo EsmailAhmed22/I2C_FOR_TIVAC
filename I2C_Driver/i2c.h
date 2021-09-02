@@ -49,17 +49,10 @@ typedef enum
 	MASTER_ENABLE,SLAVE_ENABLE
 }I2C_Master_Slave_Selection;
 
-/* Enum to Enable and Disable High Speed */
-typedef enum{
-	HS_DISABLE,HS_ENABLE
-}HIGH_SPEED_ENABLE;
-
-
 /* Configureation structure passed to the init function */
 typedef struct
 {
 	I2C_Master_Slave_Selection s_master_slave; /* Make device at initialization Master or Slave */
-	HIGH_SPEED_ENABLE s_Highspeed_Enable;	/* Enable High Speed for data transfer with 33.3MHz */
 	uint8	Device_Address;								/* Store the Device address */
 	/* For the equation SCL_PERIOD = 2×(1 + TPR)×(SCL_LP + SCL_HP)×CLK_PRD */  
 	uint8 TPR_value; /* Range from 1 to 127 */

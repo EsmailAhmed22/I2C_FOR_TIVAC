@@ -54,17 +54,6 @@ void I2C_init(const I2C_ConfigType *a_config_Ptr){
 	/* Set required TPR value */
 	I2C0_MASTER_TIMER_PER_REG = a_config_Ptr->TPR_value;
 	
-	/* Enable or Disable High Speed */
-	if(a_config_Ptr->s_Highspeed_Enable == HS_ENABLE)
-	{
-		SET_BIT(I2C0_MASTER_CTL_STAT_REG,I2C0_HS_BIT_0);
-		SET_BIT(I2C0_MASTER_TIMER_PER_REG,I2C0_HS_BIT_1);
-	}
-	else if(a_config_Ptr->s_Highspeed_Enable == HS_DISABLE)
-	{
-		CLEAR_BIT(I2C0_MASTER_CTL_STAT_REG,I2C0_HS_BIT_0);
-		CLEAR_BIT(I2C0_MASTER_TIMER_PER_REG,I2C0_HS_BIT_1);
-	}
 	/* Initialize as master or slave */
 	if(a_config_Ptr->s_master_slave == MASTER_ENABLE)
 	{

@@ -15,7 +15,7 @@
 /*******************************************************************************
  *****************************GLOBAL VARIABLES**********************************
  *******************************************************************************/
-
+static void(*g_I2C_interrupt_Func_Ptr)(void);
 
 
 /*******************************************************************************
@@ -152,6 +152,7 @@ void I2C_Master_Slave_Enable(uint8 a_master_or_slave){
  *[Returns] :.
  ***********************************************************************************************/
 void I2C_callBackAdress(void(*a_Func_Ptr)(void)){
+		g_I2C_interrupt_Func_Ptr = a_Func_Ptr;
 }
 
 /*******************************************************************************
@@ -162,5 +163,5 @@ void I2C_callBackAdress(void(*a_Func_Ptr)(void)){
 void I2C_Receive_Handler(void)
 {
 	/* Call the function in the Scheduler using Call Back concept */
-	
+	(*g_I2C_interrupt_Func_Ptr)();
 }

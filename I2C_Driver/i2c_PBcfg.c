@@ -13,4 +13,4 @@
 #include "i2c.h"
 
 /* PB structure used with SPI_Init API */
-const I2C_ConfigType I2C_Configuration= {);
+const I2C_ConfigType I2C_Configuration= {};

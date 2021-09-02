@@ -32,7 +32,73 @@
 *********************************************************************************/
 void I2C_init(const I2C_ConfigType *a_config_Ptr){
   
+  volatile uint8 delay = 0;
+  
+	/* Enable I2C clock*/
+  SET_BIT(SYSCTL_I2C_RCGCI2C_REG,I2C0_CLOCK_BIT);
+  delay = (uint8) SYSCTL_I2C_RCGCI2C_REG;
+  /* Enable Port clock*/
+  SET_BIT(SYSCTL_GPIO_REGCGC2_REG,PORTB_CLOCK_BIT);
+  delay = (uint8) SYSCTL_GPIO_REGCGC2_REG;
+	/*Select I2C as alternative function for PB2(CLK) and PB3(Data) */
+  GPIO_PORTB_AFSEL_REG |= I2C0_PINS_MASK;
+	GPIO_PORTB_PCTL_REG  |= I2C0_PCTL_VALUE;
+  /*Set PB2 and PB3 as Digital Pins*/
+  GPIO_PORTB_DEN_REG |= I2C0_PINS_MASK;
+	/* Make I2CSDA PIN (PB3) open drain */
+	SET_BIT(GPIO_PORTB_ODS_REG,I2C0_SDA_PIN);
+	
+	/* Disable I2C to configure */
+	CLEAR_BIT(I2C0_MASTER_CTL_STAT_REG,I2C0_ENABLE_BIT);
+	
+	/* Set required TPR value */
+	I2C0_MASTER_TIMER_PER_REG = a_config_Ptr->TPR_value;
+	
+	/* Enable or Disable High Speed */
+	if(a_config_Ptr->s_Highspeed_Enable == HS_ENABLE)
+	{
+		SET_BIT(I2C0_MASTER_CTL_STAT_REG,I2C0_HS_BIT_0);
+		SET_BIT(I2C0_MASTER_TIMER_PER_REG,I2C0_HS_BIT_1);
+	}
+	else if(a_config_Ptr->s_Highspeed_Enable == HS_DISABLE)
+	{
+		CLEAR_BIT(I2C0_MASTER_CTL_STAT_REG,I2C0_HS_BIT_0);
+		CLEAR_BIT(I2C0_MASTER_TIMER_PER_REG,I2C0_HS_BIT_1);
+	}
+	
+	/* Enable or Disabel MASTER and SLAVE modes */
+	if(a_config_Ptr->s_Master_Enable == M_S_ENABLE)
+	{
+		SET_BIT(I2C0_MASTER_CONFIG_REG,I2C0_MASTER_ENABLE_BIT);
+	}
+	else if(a_config_Ptr->s_Master_Enable == M_S_DISABLE)
+	{
+		CLEAR_BIT(I2C0_MASTER_CONFIG_REG,I2C0_MASTER_ENABLE_BIT);
+	}
+	if(a_config_Ptr->s_Slave_Enable == M_S_ENABLE)
+	{
+		SET_BIT(I2C0_MASTER_CONFIG_REG,I2C0_SLAVE_ENABLE_BIT);
+		/* Device Slave Address */
+		I2C0_SLAVE_OWN_ADD_REG = a_config_Ptr->Device_Address;
+	}
+	else if(a_config_Ptr->s_Slave_Enable == M_S_DISABLE)
+	{
+		CLEAR_BIT(I2C0_MASTER_CONFIG_REG,I2C0_SLAVE_ENABLE_BIT);
+	}
+	/* Enable ACK and NACK */
+	SET_BIT(I2C0_SLAVE_ACK_CTL_REG,I2C0_ACK_NACK_ENABLE);
+	/* Enable receive data interrupt */
+	SET_BIT(I2C0_SLAVE_INT_MASK_REG,I2C0_DATA_RECEIVE_INT_BIT);
+	
+	/* Set priority 2 for  SPI_Receive_Handler*/
+  NVIC_PRI2_REG &= 0xFFFFFF0F;
+  NVIC_PRI2_REG |= I2C0_HANDLER_PRIORITY;
+  
+  /* Set interrupt number in vector table */
+  SET_BIT(NVIC_EN0_REG,NVIC_I2C_INTERRUPT);
 
+	/* Enable I2C */
+	SET_BIT(I2C0_MASTER_CTL_STAT_REG,I2C0_ENABLE_BIT);
 }
 /********************************************************************************
 *[Function Name]: I2C_sendByte.

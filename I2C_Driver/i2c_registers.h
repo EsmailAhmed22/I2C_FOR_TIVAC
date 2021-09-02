@@ -29,7 +29,7 @@
 /* I2C Registers for I2C0 configuration */
 /* Mater Mode Registers */
 #define I2C0_MASTER_SLAVE_ADD_REG	(*((volatile uint32 *)0x40020000))
-#define I2C0_MASTER_STATUS_REG	  (*((volatile uint32 *)0x40020004))
+#define I2C0_MASTER_CTL_STAT_REG  (*((volatile uint32 *)0x40020004))
 #define I2C0_MASTER_DATA_REG	    (*((volatile uint32 *)0x40020008))
 #define I2C0_MASTER_TIMER_PER_REG	(*((volatile uint32 *)0x4002000C))
 #define I2C0_MASTER_INT_MASK_REG	(*((volatile uint32 *)0x40020010))
@@ -39,12 +39,14 @@
 #define I2C0_MASTER_BUS_MON_REG	  (*((volatile uint32 *)0x4002002C))
 /* Slave Mode Registers */
 #define I2C0_SLAVE_OWN_ADD_REG		(*((volatile uint32 *)0x40020800))
-#define I2C0_SLAVE_STATUS_REG		  (*((volatile uint32 *)0x40020804))
+#define I2C0_SLAVE_CTL_STAT_REG		(*((volatile uint32 *)0x40020804))
 #define I2C0_SLAVE_DATA_REG		    (*((volatile uint32 *)0x40020808))
 #define I2C0_SLAVE_INT_MASK_REG		(*((volatile uint32 *)0x4002080C))
 #define I2C0_SLAVE_INT_STAT_REG	  (*((volatile uint32 *)0x40020810))
 #define I2C0_SLAVE_INT_CLEAR_REG	(*((volatile uint32 *)0x40020818))
 #define I2C0_SLAVE_ACK_CTL_REG	  (*((volatile uint32 *)0x40020820))
-
+/* NVIC Registers for SPI0 Interrupt handling */
+#define NVIC_PRI2_REG             (*((volatile uint32 *)0xE000E408))
+#define NVIC_EN0_REG              (*((volatile uint32 *)0xE000E100))
 
 #endif

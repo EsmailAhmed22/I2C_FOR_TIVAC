@@ -65,25 +65,17 @@ void I2C_init(const I2C_ConfigType *a_config_Ptr){
 		CLEAR_BIT(I2C0_MASTER_CTL_STAT_REG,I2C0_HS_BIT_0);
 		CLEAR_BIT(I2C0_MASTER_TIMER_PER_REG,I2C0_HS_BIT_1);
 	}
-	
-	/* Enable or Disabel MASTER and SLAVE modes */
-	if(a_config_Ptr->s_Master_Enable == M_S_ENABLE)
+	/* Initialize as master or slave */
+	if(a_config_Ptr->s_master_slave == MASTER_ENABLE)
 	{
+		SET_BIT(GPIO_PORTB_DIR_REG,I2C0_SDA_PIN); /* Set clk direction */
 		SET_BIT(I2C0_MASTER_CONFIG_REG,I2C0_MASTER_ENABLE_BIT);
 	}
-	else if(a_config_Ptr->s_Master_Enable == M_S_DISABLE)
+	else if(a_config_Ptr->s_master_slave == SLAVE_ENABLE)
 	{
-		CLEAR_BIT(I2C0_MASTER_CONFIG_REG,I2C0_MASTER_ENABLE_BIT);
-	}
-	if(a_config_Ptr->s_Slave_Enable == M_S_ENABLE)
-	{
+		CLEAR_BIT(GPIO_PORTB_DIR_REG,I2C0_SDA_PIN); /* Set clk direction */
 		SET_BIT(I2C0_MASTER_CONFIG_REG,I2C0_SLAVE_ENABLE_BIT);
-		/* Device Slave Address */
-		I2C0_SLAVE_OWN_ADD_REG = a_config_Ptr->Device_Address;
-	}
-	else if(a_config_Ptr->s_Slave_Enable == M_S_DISABLE)
-	{
-		CLEAR_BIT(I2C0_MASTER_CONFIG_REG,I2C0_SLAVE_ENABLE_BIT);
+		I2C0_SLAVE_OWN_ADD_REG = a_config_Ptr->Device_Address; /* Device Slave Address */
 	}
 	/* Enable ACK and NACK */
 	SET_BIT(I2C0_SLAVE_ACK_CTL_REG,I2C0_ACK_NACK_ENABLE);

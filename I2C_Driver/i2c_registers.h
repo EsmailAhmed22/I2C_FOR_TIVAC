@@ -15,7 +15,7 @@
 
 #include "Std_Types.h"
 
-/* Needed to initialize the port containing SPI0 Clock and I2C0 Clock */
+/* Needed to initialize the port Clock and I2C0 Clock */
 #define SYSCTL_GPIO_REGCGC2_REG   (*((volatile uint32 *)0x400FE108))
 #define SYSCTL_I2C_RCGCI2C_REG    (*((volatile uint32 *)0x400FE620))
 
